@@ -53,10 +53,10 @@ RUN curl -sL \
 RUN useradd -m -s /bin/bash steam
 COPY --from=rcon-cli_builder /build/gorcon /usr/bin/rcon-cli
 
-LABEL maintainer="support@indifferentbroccoli.com" \
-      name="indifferentbroccoli/projectzomboid-server-docker" \
-      github="https://github.com/indifferentbroccoli/projectzomboid-server-docker" \
-      dockerhub="https://hub.docker.com/r/indifferentbroccoli/projectzomboid-server-docker"
+LABEL maintainer="mbulava@gmail.com" \
+      name="mbulava/projectzomboid-server-docker" \
+      github="https://github.com/mbulava/projectzomboid-server-docker" \
+      dockerhub="https://hub.docker.com/r/mbulava/projectzomboid-server-docker"
 
 ENV HOME=/home/steam \
     CONFIG_DIR=/project-zomboid-config \
@@ -84,7 +84,8 @@ RUN mkdir -p /project-zomboid /project-zomboid-config && \
 
 WORKDIR /home/steam/server
 
-HEALTHCHECK --start-period=5m \
-            CMD pgrep "ProjectZomboid" > /dev/null || exit 1
+# Removing Healthcheck for now as it is causing issues with the server not starting up properly. Will revisit later.
+#HEALTHCHECK --start-period=5m \
+#            CMD pgrep "ProjectZomboid" > /dev/null || exit 1
 
 ENTRYPOINT ["/home/steam/server/init.sh"]
